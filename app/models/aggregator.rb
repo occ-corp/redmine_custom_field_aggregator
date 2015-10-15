@@ -14,7 +14,7 @@ class Aggregator
       days_hash[key] = Array.new(headers.length-1, 0)
     end
     entries.each do |entry|
-      target_date = entry.issue.start_date.to_s
+      target_date = entry.spent_on.to_s
       if not days_hash.has_key? target_date
         next
       end
