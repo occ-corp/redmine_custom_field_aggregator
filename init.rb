@@ -4,7 +4,7 @@ Redmine::Plugin.register :redmine_custom_field_aggregator do
   name 'Redmine Custom Field Aggregator plugin'
   author 'Yusaku ONO'
   description "This plugin enables to sum up spent time and custom field's values."
-  version '0.0.1'
+  version '0.0.5'
   url 'https://github.com/occ-corp/redmine_custom_field_aggregator'
   author_url 'https://github.com/yono'
   project_module :redmine_custom_field_aggregator do
