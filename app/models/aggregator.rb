@@ -21,10 +21,7 @@ class Aggregator
       days_hash[target_date][0] += entry.hours
       i = 1
       custom_fields.each do |custom_field|
-        custom_values = CustomValue.find(:all, 
-                                         :conditions => {
-                                           :customized_id => entry.id, 
-                                           :custom_field_id => custom_field.id})
+        custom_values = CustomValue.where("customized_id = ? and custom_field_id = ?", entry.id, custom_field.id)
         custom_values.each do |custom_value|
           days_hash[target_date][i] += custom_value.value.to_f
         end
@@ -45,10 +42,7 @@ class Aggregator
       _sum_all[0] += entry.hours
       i = 1
       custom_fields.each do |custom_field|
-        custom_values = CustomValue.find(:all, 
-                                         :conditions => {
-                                           :customized_id => entry.id, 
-                                           :custom_field_id => custom_field.id})
+        custom_values = CustomValue.where("customized_id = ? and custom_field_id = ?", entry.id, custom_field.id)
         custom_values.each do |custom_value|
           _sum_all[i] += custom_value.value.to_f
         end
@@ -59,11 +53,7 @@ class Aggregator
   end
 
   def custom_fields
-    custom_fields = CustomField.find(:all, 
-                                     :conditions => [
-                                       "type = :type and field_format in ('float', 'int')",
-                                       {:type => 'TimeEntryCustomField'}],
-                                     :order => :position)
+    custom_fields = CustomField.where("type = 'TimeEntryCustomField' and field_format in ('float', 'int')").order(:position)
   end
 
   def headers
@@ -75,15 +65,14 @@ class Aggregator
   end
 
   def entries
-    entries = TimeEntry.find(:all,
-                             :conditions => [
-                               "user_id = :user and project_id = :project 
-                                and spent_on >= :date_st and spent_on <= :date_ed",
-                               {:user => @user,
-                                :project => @project,
-                                :date_st => @date_st,
-                                :date_ed => @date_ed}
-                             ])
+    entries = TimeEntry.where("user_id = :user and
+                               project_id = :project and
+                               spent_on >= :date_st and
+                               spent_on <= :date_ed",
+                               {user: @user,
+                                project: @project,
+                                date_st: @date_st,
+                                date_ed: @date_ed})
   end
 
 end
