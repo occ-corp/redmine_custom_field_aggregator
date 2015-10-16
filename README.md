@@ -13,12 +13,9 @@ Reqiurements
 Installation
 ------------
 
-* Git-clone this plugin from github.
+* Add the gem to `$REDMINE_DIR/Gemfile.local`: `gem 'redmine_custom_field_aggregator', github: 'occ-corp/redmine_custom_field_aggregator'`
 
-like that.
-
-    $ cd $RAILS_ROOT/vendor/plugins
-    $ git clone git://github.com/occ-corp/redmine_custom_field_aggregator.git
+* `bundle`
 
 * Restart your Redmine.
 
